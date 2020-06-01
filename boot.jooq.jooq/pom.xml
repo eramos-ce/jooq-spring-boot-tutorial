@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>boot.jooq</artifactId>
+    <groupId>com.eramosce.demos</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <properties>
+    <jooq.version>3.13.2</jooq.version>
+    <junit.version>4.12</junit.version>
+    <postgresql.version>42.2.12</postgresql.version>
+    <log4j.version>1.2.12</log4j.version>
+  </properties>
+
+  <artifactId>boot.jooq.jooq</artifactId>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>${log4j.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jooq</groupId>
+      <artifactId>jooq</artifactId>
+      <version>${jooq.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jooq</groupId>
+      <artifactId>jooq-meta</artifactId>
+      <version>${jooq.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jooq</groupId>
+      <artifactId>jooq-meta-extensions</artifactId>
+      <version>${jooq.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.eramosce.demos</groupId>
+      <artifactId>boot.jooq.entity</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>${postgresql.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.jooq</groupId>
+        <artifactId>jooq-codegen-maven</artifactId>
+        <version>${jooq.version}</version>
+        <executions>
+          <execution>
+            <id>generate-h2-jpa</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <generator>
+                <database>
+                  <name>org.jooq.meta.extensions.jpa.JPADatabase</name>
+                  <properties>
+                    <!-- A comma separated list of Java packages, that contain your entities -->
+                    <property>
+                      <key>packages</key>
+                      <value>com.eramosce.demos.boot.jooq.entity</value>
+                    </property>
+
+                    <!-- Whether JPA 2.1 AttributeConverters should be auto-mapped to jOOQ Converters.
+                         Custom <forcedType/> configurations will have a higher priority than these auto-mapped converters.
+                         This defaults to true. -->
+                    <property>
+                      <key>useAttributeConverters</key>
+                      <value>true</value>
+                    </property>
+
+                    <!-- The default schema for unqualified objects:
+
+                         - public: all unqualified objects are located in the PUBLIC (upper case) schema
+                         - none: all unqualified objects are located in the default schema (default)
+
+                         This configuration can be overridden with the schema mapping feature -->
+                    <property>
+                      <key>unqualifiedSchema</key>
+                      <value>none</value>
+                    </property>
+                  </properties>
+                </database>
+                <target>
+                  <packageName>com.eramosce.demos.boot.jooq.jooq</packageName>
+                </target>
+              </generator>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+
+
+</project>
