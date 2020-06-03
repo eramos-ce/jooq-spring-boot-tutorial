@@ -11,6 +11,8 @@
   <modules>
     <module>boot.jooq.entity</module>
     <module>boot.jooq.jooq</module>
+    <module>boot.jooq.service</module>
+    <module>docker</module>
   </modules>
 
 
