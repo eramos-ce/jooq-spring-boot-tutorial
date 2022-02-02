@@ -11,7 +11,7 @@
   <properties>
     <jooq.version>3.13.2</jooq.version>
     <junit.version>4.12</junit.version>
-    <postgresql.version>42.2.12</postgresql.version>
+    <postgresql.version>42.2.25</postgresql.version>
     <log4j.version>1.2.12</log4j.version>
   </properties>
 
